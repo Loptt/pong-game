@@ -7,6 +7,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include "MainMenu.h"
+#include "SplashScreen.h"
+#include "PlayerPaddle.h"
 
 class Game
 {
@@ -17,11 +20,15 @@ private:
     static bool isExiting();
     static void gameLoop();
 
+    static void showMainMenu();
+    static void showSplashScreen();
+
     enum GameState {Uninitialized, ShowingSplash, Paused, ShowingMenu, Playing,
                     Exiting};
 
     static GameState gameState;
     static sf::RenderWindow mainWindow;
+    static PlayerPaddle player1;
 };
 
 #endif //PROJECT_PYROS_GAME_H
