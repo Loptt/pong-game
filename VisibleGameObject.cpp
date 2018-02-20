@@ -26,6 +26,7 @@ void VisibleGameObject::load(std::string filename)
         this->filename = filename;
         isLoaded = true;
         sprite.setTexture(texture);
+        spriteDimensions = sprite.getLocalBounds();
     }
 }
 

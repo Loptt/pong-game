@@ -11,12 +11,12 @@ void Game::start()
     if (gameState != Uninitialized)
         return;
 
-    mainWindow.create(sf::VideoMode(1024, 768, 32), "Pong", sf::Style::Titlebar | sf::Style::Close);
+    mainWindow.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32), "Pong", sf::Style::Titlebar | sf::Style::Close);
 
     PlayerPaddle *player1 = new PlayerPaddle();
 
     player1->load("images/paddle.png");
-    player1->setPosition(sf::Vector2f(1024/2-40, 700));
+    player1->setPosition(sf::Vector2f(SCREEN_WIDTH/2-40, 700));
 
     gameObjectManager.add("Paddle1", player1);
 
@@ -90,5 +90,11 @@ void Game::showSplashScreen()
 }
 
 Game::GameState Game::gameState = Uninitialized;
+
+sf::RenderWindow &Game::getWindow()
+{
+    return mainWindow;
+}
+
 sf::RenderWindow Game::mainWindow;
 GameObjectManager Game::gameObjectManager;

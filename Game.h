@@ -16,6 +16,10 @@ class Game
 {
 public:
     static void start();
+    const static int SCREEN_WIDTH = 1024;
+    const static int SCREEN_HEIGHT = 768;
+
+    static sf::RenderWindow& getWindow();
 
 private:
     static bool isExiting();

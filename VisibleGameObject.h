@@ -25,6 +25,7 @@ public:
 
 protected:
     sf::Sprite& getSprite();
+    sf::FloatRect spriteDimensions;
 
 private:
     sf::Sprite sprite;
