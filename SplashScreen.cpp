@@ -8,7 +8,7 @@ void SplashScreen::show(sf::RenderWindow &window)
 {
     sf::Texture background;
 
-    if (!background.loadFromFile("Splashscreen.png"))
+    if (!background.loadFromFile("images/Splashscreen.png"))
     {
         return;
     }

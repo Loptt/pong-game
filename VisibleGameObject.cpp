@@ -16,7 +16,7 @@ VisibleGameObject::~VisibleGameObject()
 
 void VisibleGameObject::load(std::string filename)
 {
-    if (!texture.loadFromFile("paddle.png"))
+    if (!texture.loadFromFile(filename))
     {
         isLoaded = false;
         filename = "";
@@ -37,10 +37,35 @@ void VisibleGameObject::draw(sf::RenderWindow &window)
     }
 }
 
+void VisibleGameObject::update(float elapsedTime)
+{
+
+}
+
 void VisibleGameObject::setPosition(sf::Vector2f position)
 {
     if (isLoaded)
     {
         sprite.setPosition(position);
     }
+}
+
+sf::Vector2f VisibleGameObject::getPosition() const
+{
+    if (isLoaded)
+    {
+        return sprite.getPosition();
+    }
+
+    return sf::Vector2f();
+}
+
+bool VisibleGameObject::isLoaded() const
+{
+    return isLoaded;
+}
+
+sf::Sprite &VisibleGameObject::getSprite()
+{
+    return sprite;
 }

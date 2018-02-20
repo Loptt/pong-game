@@ -12,7 +12,15 @@ class PlayerPaddle : public VisibleGameObject
 public:
     PlayerPaddle();
     ~PlayerPaddle();
+
+    void update(float elapsedTime) override;
+    void draw(sf::RenderWindow &window) override;
+
+    float getVelocity() const;
+
 private:
+    float velocity;
+    float maxVelocity;
 };
 
 

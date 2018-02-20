@@ -11,10 +11,14 @@ void Game::start()
     if (gameState != Uninitialized)
         return;
 
-    mainWindow.create(sf::VideoMode(1024, 768, 32), "Pyros", sf::Style::Titlebar | sf::Style::Close);
+    mainWindow.create(sf::VideoMode(1024, 768, 32), "Pong", sf::Style::Titlebar | sf::Style::Close);
 
-    player1.load("paddle.png");
-    player1.setPosition(sf::Vector2f(1024/2-40, 700));
+    PlayerPaddle *player1 = new PlayerPaddle();
+
+    player1->load("images/paddle.png");
+    player1->setPosition(sf::Vector2f(1024/2-40, 700));
+
+    gameObjectManager.add("Paddle1", player1);
 
     gameState = Game::ShowingSplash;
 
@@ -49,7 +53,7 @@ void Game::gameLoop()
             case Game::Playing:
 
                 mainWindow.clear(sf::Color(0,0,0));
-                player1.draw(mainWindow);
+                gameObjectManager.drawAll(mainWindow);
                 mainWindow.display();
 
                 if (currentEvent.type == sf::Event::Closed)
@@ -87,4 +91,4 @@ void Game::showSplashScreen()
 
 Game::GameState Game::gameState = Uninitialized;
 sf::RenderWindow Game::mainWindow;
-PlayerPaddle Game::player1;
+GameObjectManager Game::gameObjectManager;

@@ -9,7 +9,7 @@ MainMenu::MenuResult MainMenu::show(sf::RenderWindow &window)
 {
     sf::Texture texture;
 
-    if (!texture.loadFromFile("Mainmenu.png"))
+    if (!texture.loadFromFile("images/Mainmenu.png"))
     {
         return Nothing;
     }

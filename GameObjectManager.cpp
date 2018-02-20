@@ -21,20 +21,37 @@ void GameObjectManager::add(std::string name, VisibleGameObject *gameObject)
 
 void GameObjectManager::remove(std::string name)
 {
+    std::map<std::string, VisibleGameObject*>::const_iterator results = gameObjects.find(name);
 
+    if (results != gameObjects.end())
+    {
+        delete results->second;
+        gameObjects.erase(results);
+    }
 }
 
 int GameObjectManager::getObjectCount() const
 {
-    return 0;
+    return static_cast<int>(gameObjects.size());
 }
 
 VisibleGameObject *GameObjectManager::get(std::string name) const
 {
-    return nullptr;
+    std::map<std::string, VisibleGameObject*>::const_iterator results = gameObjects.find(name);
+    if (results == gameObjects.end())
+    {
+        return NULL;
+    }
+    return results->second;
 }
 
 void GameObjectManager::drawAll(sf::RenderWindow &window)
 {
+    std::map<std::string, VisibleGameObject*>::const_iterator itr = gameObjects.begin();
 
+    while (itr != gameObjects.end())
+    {
+        itr->second->draw(window);
+        itr++;
+    }
 }

@@ -10,6 +10,7 @@
 #include "MainMenu.h"
 #include "SplashScreen.h"
 #include "PlayerPaddle.h"
+#include "GameObjectManager.h"
 
 class Game
 {
@@ -28,7 +29,8 @@ private:
 
     static GameState gameState;
     static sf::RenderWindow mainWindow;
-    static PlayerPaddle player1;
+
+    static GameObjectManager gameObjectManager;
 };
 
 #endif //PROJECT_PYROS_GAME_H
