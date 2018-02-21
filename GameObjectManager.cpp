@@ -2,6 +2,7 @@
 // Created by charles on 2/18/18.
 //
 
+#include <iostream>
 #include "GameObjectManager.h"
 #include "Game.h"
 
@@ -57,14 +58,13 @@ void GameObjectManager::drawAll(sf::RenderWindow &window)
     }
 }
 
-void GameObjectManager::updateAll()
+void GameObjectManager::updateAll(float timeDelta)
 {
     std::map<std::string,VisibleGameObject*>::const_iterator itr = gameObjects.begin();
-
-    float timeDelta = Game::clock.getElapsedTime().asSeconds();
 
     while (itr != gameObjects.end())
     {
         itr->second->update(timeDelta);
+        itr++;
     }
 }

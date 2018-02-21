@@ -20,7 +20,7 @@ public:
     VisibleGameObject *get(std::string name) const;
 
     void drawAll(sf::RenderWindow &window);
-    void updateAll();
+    void updateAll(float timeDelta);
 
 private:
     std::map<std::string, VisibleGameObject*> gameObjects;

@@ -5,6 +5,8 @@
 #include "MainMenu.h"
 #include <iostream>
 
+#include <iostream>
+
 MainMenu::MenuResult MainMenu::show(sf::RenderWindow &window)
 {
     sf::Texture texture;

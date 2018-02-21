@@ -11,6 +11,7 @@
 #include "SplashScreen.h"
 #include "PlayerPaddle.h"
 #include "GameObjectManager.h"
+#include "GameBall.h"
 
 class Game
 {
@@ -20,8 +21,6 @@ public:
     const static int SCREEN_HEIGHT = 768;
 
     static sf::RenderWindow& getWindow();
-
-    static sf::Clock clock;
 
 private:
     static bool isExiting();
@@ -37,6 +36,8 @@ private:
     static sf::RenderWindow mainWindow;
 
     static GameObjectManager gameObjectManager;
+
+    static sf::Clock clock;
 };
 
 #endif //PROJECT_PYROS_GAME_H

@@ -4,7 +4,7 @@
 
 
 #include "Game.h"
-#include "GameBall.h"
+#include <iostream>
 
 
 void Game::start()
@@ -24,12 +24,9 @@ void Game::start()
 
     gameState = Game::ShowingSplash;
 
-    clock.restart();
-
     while (!isExiting())
     {
         gameLoop();
-        clock.restart();
     }
 
     mainWindow.close();
@@ -57,9 +54,13 @@ void Game::gameLoop()
 
             case Game::Playing:
 
+                float deltaTime = clock.restart().asSeconds();
+
                 mainWindow.clear(sf::Color(0,0,0));
-                gameObjectManager.updateAll();
+
+                gameObjectManager.updateAll(deltaTime);
                 gameObjectManager.drawAll(mainWindow);
+
                 mainWindow.display();
 
                 if (currentEvent.type == sf::Event::Closed)
@@ -95,12 +96,12 @@ void Game::showSplashScreen()
     gameState = Game::ShowingMenu;
 }
 
-Game::GameState Game::gameState = Uninitialized;
-
 sf::RenderWindow &Game::getWindow()
 {
     return mainWindow;
 }
 
+Game::GameState Game::gameState = Uninitialized;
 sf::RenderWindow Game::mainWindow;
 GameObjectManager Game::gameObjectManager;
+sf::Clock Game::clock;
