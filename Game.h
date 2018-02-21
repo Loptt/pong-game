@@ -21,6 +21,8 @@ public:
 
     static sf::RenderWindow& getWindow();
 
+    static sf::Clock clock;
+
 private:
     static bool isExiting();
     static void gameLoop();

@@ -21,7 +21,7 @@ public:
 
     virtual void setPosition(sf::Vector2f);
     virtual sf::Vector2f getPosition() const;
-    virtual bool isLoaded() const;
+    virtual bool getIsLoaded() const;
 
 protected:
     sf::Sprite& getSprite();

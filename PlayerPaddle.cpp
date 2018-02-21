@@ -11,7 +11,7 @@ velocity(0),
 maxVelocity(600.0f)
 {
     load("images/paddle.png");
-    assert(isLoaded());
+    assert(getIsLoaded());
 
     spriteDimensions = getSprite().getLocalBounds();
 

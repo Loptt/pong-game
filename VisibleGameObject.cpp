@@ -61,7 +61,7 @@ sf::Vector2f VisibleGameObject::getPosition() const
     return sf::Vector2f();
 }
 
-bool VisibleGameObject::isLoaded() const
+bool VisibleGameObject::getIsLoaded() const
 {
     return isLoaded;
 }

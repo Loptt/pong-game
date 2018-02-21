@@ -4,6 +4,7 @@
 
 
 #include "Game.h"
+#include "GameBall.h"
 
 
 void Game::start()
@@ -14,17 +15,21 @@ void Game::start()
     mainWindow.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32), "Pong", sf::Style::Titlebar | sf::Style::Close);
 
     PlayerPaddle *player1 = new PlayerPaddle();
-
-    player1->load("images/paddle.png");
     player1->setPosition(sf::Vector2f(SCREEN_WIDTH/2-40, 700));
-
     gameObjectManager.add("Paddle1", player1);
 
+    GameBall *ball = new GameBall();
+    ball->setPosition(sf::Vector2f(SCREEN_WIDTH/2, (SCREEN_HEIGHT/2)-15));
+    gameObjectManager.add("Ball", ball);
+
     gameState = Game::ShowingSplash;
+
+    clock.restart();
 
     while (!isExiting())
     {
         gameLoop();
+        clock.restart();
     }
 
     mainWindow.close();
@@ -53,6 +58,7 @@ void Game::gameLoop()
             case Game::Playing:
 
                 mainWindow.clear(sf::Color(0,0,0));
+                gameObjectManager.updateAll();
                 gameObjectManager.drawAll(mainWindow);
                 mainWindow.display();
 
