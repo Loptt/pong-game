@@ -23,6 +23,11 @@ public:
     virtual sf::Vector2f getPosition() const;
     virtual bool getIsLoaded() const;
 
+    virtual sf::FloatRect getBoundingRect() const;
+
+    virtual float getWidth();
+    virtual float getHeight();
+
 protected:
     sf::Sprite& getSprite();
     sf::FloatRect spriteDimensions;

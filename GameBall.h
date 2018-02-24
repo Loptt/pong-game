@@ -12,10 +12,15 @@ class GameBall : public VisibleGameObject
 public:
     GameBall();
     virtual ~GameBall();
-
-public:
+    void update(float) override;
 
 private:
+    float velocity;
+    float angle;
+    float elapsedTimeSinceStart;
+
+    float linearVelocityX(float);
+    float linearVelocityY(float);
 };
 
 

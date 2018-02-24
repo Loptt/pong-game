@@ -70,3 +70,20 @@ sf::Sprite &VisibleGameObject::getSprite()
 {
     return sprite;
 }
+
+sf::FloatRect VisibleGameObject::getBoundingRect() const
+{
+    sf::FloatRect boundingRect = sprite.getLocalBounds();
+
+    return boundingRect;
+}
+
+float VisibleGameObject::getWidth()
+{
+    return getBoundingRect().width;
+}
+
+float VisibleGameObject::getHeight()
+{
+    return getBoundingRect().height;
+}

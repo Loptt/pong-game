@@ -21,6 +21,7 @@ public:
     const static int SCREEN_HEIGHT = 768;
 
     static sf::RenderWindow& getWindow();
+    static GameObjectManager& getGameObjectManager();
 
 private:
     static bool isExiting();

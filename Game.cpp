@@ -4,8 +4,6 @@
 
 
 #include "Game.h"
-#include <iostream>
-
 
 void Game::start()
 {
@@ -39,6 +37,8 @@ bool Game::isExiting()
 
 void Game::gameLoop()
 {
+    float deltaTime;
+
     sf::Event currentEvent;
     while (mainWindow.pollEvent(currentEvent))
     {
@@ -54,7 +54,7 @@ void Game::gameLoop()
 
             case Game::Playing:
 
-                float deltaTime = clock.restart().asSeconds();
+                deltaTime = clock.restart().asSeconds();
 
                 mainWindow.clear(sf::Color(0,0,0));
 
@@ -102,6 +102,12 @@ sf::RenderWindow &Game::getWindow()
 }
 
 Game::GameState Game::gameState = Uninitialized;
+
+GameObjectManager &Game::getGameObjectManager()
+{
+    return gameObjectManager;
+}
+
 sf::RenderWindow Game::mainWindow;
 GameObjectManager Game::gameObjectManager;
 sf::Clock Game::clock;

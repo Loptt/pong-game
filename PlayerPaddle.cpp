@@ -8,7 +8,8 @@
 
 PlayerPaddle::PlayerPaddle() :
 velocity(0),
-maxVelocity(600.0f)
+maxVelocity(600.0f),
+isGoingRight(true)
 {
     load("images/paddle.png");
     assert(getIsLoaded());
@@ -27,33 +28,15 @@ void PlayerPaddle::update(float elapsedTime)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-        velocity -= 3.0f;
+        getSprite().move(-10.0f,0);
+        isGoingRight = false;
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
-        velocity += 3.0f;
+        getSprite().move(10.0f,0);
+        isGoingRight = true;
     }
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-    {
-        velocity = 0.0f;
-    }
-
-    if (velocity > maxVelocity)
-        velocity = maxVelocity;
-
-    if (velocity < -maxVelocity)
-        velocity = -maxVelocity;
-
-    sf::Vector2f pos = this->getPosition();
-
-    if ((pos.x < spriteDimensions.width/2) || (pos.x > (Game::SCREEN_WIDTH - spriteDimensions.width/2)))
-    {
-        velocity = -velocity;
-    }
-
-    getSprite().move(velocity * elapsedTime, 0);
 }
 
 void PlayerPaddle::draw(sf::RenderWindow &window)
@@ -64,4 +47,9 @@ void PlayerPaddle::draw(sf::RenderWindow &window)
 float PlayerPaddle::getVelocity() const
 {
     return velocity;
+}
+
+bool PlayerPaddle::getIsGoingRight()
+{
+    return isGoingRight;
 }
