@@ -20,6 +20,7 @@ public:
     virtual void update(float elapsedTime);
 
     virtual void setPosition(sf::Vector2f);
+    virtual void setPosition(float, float);
     virtual sf::Vector2f getPosition() const;
     virtual bool getIsLoaded() const;
 

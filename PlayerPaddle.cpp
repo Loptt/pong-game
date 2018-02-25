@@ -5,6 +5,7 @@
 #include <cassert>
 #include "PlayerPaddle.h"
 #include "Game.h"
+#include <iostream>
 
 PlayerPaddle::PlayerPaddle() :
 velocity(0),
@@ -26,17 +27,48 @@ PlayerPaddle::~PlayerPaddle()
 
 void PlayerPaddle::update(float elapsedTime)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
     {
-        getSprite().move(-10.0f,0);
-        isGoingRight = false;
+        velocity -= 3.0f;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
     {
-        getSprite().move(10.0f,0);
-        isGoingRight = true;
+        velocity += 3.0f;
     }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+    {
+        velocity = 0.0f;
+    }
+
+    if (velocity > maxVelocity)
+    {
+        velocity = maxVelocity;
+    }
+
+    if (velocity < -maxVelocity)
+    {
+        velocity = -maxVelocity;
+    }
+
+    sf::Vector2f pos = getPosition();
+
+    if (pos.x > (Game::SCREEN_WIDTH - getSprite().getLocalBounds().width/2))
+    {
+        velocity = -velocity;
+        setPosition(pos.x-1, pos.y);
+    }
+
+    if (pos.x < getSprite().getLocalBounds().width/2)
+    {
+        velocity = -velocity;
+        setPosition(pos.x+1, pos.y);
+    }
+
+    getSprite().move(velocity * elapsedTime, 0);
+
+    velocity *= 0.995f;
 }
 
 void PlayerPaddle::draw(sf::RenderWindow &window)

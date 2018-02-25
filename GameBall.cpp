@@ -4,13 +4,15 @@
 
 #include "GameBall.h"
 #include "Game.h"
+#include "ServiceLocator.h"
 #include <cassert>
+#include <cmath>
 #include <cstdlib>
 #include <ctime>
-#include <cmath>
+#include <iostream>
 
 GameBall::GameBall() :
-velocity(30.0f),
+velocity(500.0f),
 elapsedTimeSinceStart(0.0f)
 {
     load("images/ball.png");
@@ -40,6 +42,7 @@ void GameBall::update(float elapsedTime)
     float moveByX = linearVelocityX(angle) * moveAmount;
     float moveByY = linearVelocityY(angle) * moveAmount;
 
+
     if (getPosition().x + moveByX <= 0 + getWidth()/2
         || getPosition().x + getHeight()/2 + moveByX >= Game::SCREEN_WIDTH)
     {
@@ -52,6 +55,7 @@ void GameBall::update(float elapsedTime)
 
         moveByX = -moveByX;
     }
+
 
     PlayerPaddle *player1 = dynamic_cast<PlayerPaddle*>(Game::getGameObjectManager().get("Paddle1"));
 
@@ -73,7 +77,9 @@ void GameBall::update(float elapsedTime)
                 setPosition(position);
             }
 
-            if (!player1->getIsGoingRight())
+            float playerVelocity = player1->getVelocity();
+
+            if (playerVelocity < 0)
             {
                 angle -= 20.0f;
                 if (angle < 0)
@@ -87,6 +93,8 @@ void GameBall::update(float elapsedTime)
             }
 
             velocity += 5.0f;
+
+            ServiceLocator::getAudio()->playSound("audio/bounce.wav");
         }
 
         if (getPosition().y -getHeight()/2 <= 0)
@@ -97,11 +105,12 @@ void GameBall::update(float elapsedTime)
 
         if (getPosition().y + getHeight()/2 + moveByY >= Game::SCREEN_HEIGHT)
         {
-            getSprite().setPosition(Game::SCREEN_WIDTH/2, Game::SCREEN_HEIGHT/2);
+            setPosition(Game::SCREEN_WIDTH/2, Game::SCREEN_HEIGHT/2);
             angle = (float)(rand() % 361);
             velocity = 220.0f;
             elapsedTimeSinceStart = 0.0f;
         }
+
     }
 
     getSprite().move(moveByX, moveByY);

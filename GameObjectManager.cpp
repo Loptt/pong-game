@@ -37,6 +37,7 @@ int GameObjectManager::getObjectCount() const
     return static_cast<int>(gameObjects.size());
 }
 
+
 VisibleGameObject *GameObjectManager::get(std::string name) const
 {
     std::map<std::string, VisibleGameObject*>::const_iterator results = gameObjects.find(name);

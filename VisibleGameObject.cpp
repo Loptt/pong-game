@@ -73,7 +73,7 @@ sf::Sprite &VisibleGameObject::getSprite()
 
 sf::FloatRect VisibleGameObject::getBoundingRect() const
 {
-    sf::FloatRect boundingRect = sprite.getLocalBounds();
+    sf::FloatRect boundingRect = sprite.getGlobalBounds();
 
     return boundingRect;
 }
@@ -86,4 +86,12 @@ float VisibleGameObject::getWidth()
 float VisibleGameObject::getHeight()
 {
     return getBoundingRect().height;
+}
+
+void VisibleGameObject::setPosition(float x, float y)
+{
+    if (isLoaded)
+    {
+        sprite.setPosition(x,y);
+    }
 }

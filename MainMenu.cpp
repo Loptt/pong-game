@@ -3,6 +3,7 @@
 //
 
 #include "MainMenu.h"
+#include "ServiceLocator.h"
 #include <iostream>
 
 #include <iostream>
@@ -62,7 +63,11 @@ MainMenu::MenuResult MainMenu::getMenuResponse(sf::RenderWindow &window)
         {
             if (menuEvent.type == sf::Event::MouseButtonPressed)
             {
+                //if(ServiceLocator::getAudio()->isSongPlaying())
+                  //  ServiceLocator::getAudio()->stopAllSounds();
+
                 return handleClick(sf::Mouse::getPosition(window));
+
             }
 
             if (menuEvent.type == sf::Event::Closed)

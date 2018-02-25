@@ -3,7 +3,11 @@
 //
 
 
+#include <iostream>
+#include <cassert>
 #include "Game.h"
+#include "SFMLSoundProvider.h"
+#include "ServiceLocator.h"
 
 void Game::start()
 {
@@ -19,6 +23,10 @@ void Game::start()
     GameBall *ball = new GameBall();
     ball->setPosition(sf::Vector2f(SCREEN_WIDTH/2, (SCREEN_HEIGHT/2)-15));
     gameObjectManager.add("Ball", ball);
+
+    SFMLSoundProvider soundProvider;
+    ServiceLocator::registerServiceLocator(&soundProvider);
+    ServiceLocator::getAudio()->playSong("audio/Soundtrack.ogg",true);
 
     gameState = Game::ShowingSplash;
 
@@ -40,35 +48,38 @@ void Game::gameLoop()
     float deltaTime;
 
     sf::Event currentEvent;
+    switch (gameState)
+    {
+        case Game::ShowingSplash:
+            showSplashScreen();
+            break;
+
+        case Game::ShowingMenu:
+            showMainMenu();
+            break;
+
+        case Game::Playing:
+
+            deltaTime = clock.restart().asSeconds();
+
+            gameObjectManager.updateAll(deltaTime);
+            mainWindow.clear(sf::Color(0, 0, 0));
+            gameObjectManager.drawAll(mainWindow);
+
+            mainWindow.display();
+
+            break;
+
+        default:
+            assert(true);
+            break;
+    }
+
     while (mainWindow.pollEvent(currentEvent))
     {
-        switch (gameState)
+        if (currentEvent.type == sf::Event::Closed)
         {
-            case Game::ShowingSplash:
-                showSplashScreen();
-                break;
-
-            case Game::ShowingMenu:
-                showMainMenu();
-                break;
-
-            case Game::Playing:
-
-                deltaTime = clock.restart().asSeconds();
-
-                mainWindow.clear(sf::Color(0,0,0));
-
-                gameObjectManager.updateAll(deltaTime);
-                gameObjectManager.drawAll(mainWindow);
-
-                mainWindow.display();
-
-                if (currentEvent.type == sf::Event::Closed)
-                {
-                    gameState = Game::Exiting;
-                }
-
-                break;
+            gameState = Game::Exiting;
         }
     }
 }
