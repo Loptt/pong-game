@@ -5,6 +5,7 @@
 #include "GameBall.h"
 #include "Game.h"
 #include "ServiceLocator.h"
+#include "AIPaddle.h"
 #include <cassert>
 #include <cmath>
 #include <cstdlib>
@@ -58,11 +59,14 @@ void GameBall::update(float elapsedTime)
 
 
     PlayerPaddle *player1 = dynamic_cast<PlayerPaddle*>(Game::getGameObjectManager().get("Paddle1"));
+    AIPaddle *player2 = dynamic_cast<AIPaddle*>(Game::getGameObjectManager().get("Paddle2"));
 
-    if (player1 != NULL)
+    if (player1 != NULL && player2 != NULL)
     {
         sf::Rect<float> p1BB = player1->getBoundingRect();
+        sf::Rect<float> p2BB = player2->getBoundingRect();
 
+        //Intersection with player paddle
         if (p1BB.intersects(getBoundingRect()))
         {
             angle = 360.0f - (angle - 180.0f);
@@ -97,10 +101,47 @@ void GameBall::update(float elapsedTime)
             ServiceLocator::getAudio()->playSound("audio/bounce.wav");
         }
 
+        //Intersection with AI paddle
+        if (p2BB.intersects(getBoundingRect()))
+        {
+            angle = 360.0f - (angle - 180.0f);
+            if (angle > 360.0f)
+                angle -= 360.0f;
+
+            moveByY = -moveByY;
+
+            if (getBoundingRect().top + getBoundingRect().height < player2->getBoundingRect().top)
+            {
+                sf::Vector2f position(getPosition().x, player2->getBoundingRect().top- getWidth()/2-1);
+                setPosition(position);
+            }
+
+            float playerVelocity = player2->getVelocity();
+
+            if (playerVelocity < 0)
+            {
+                angle -= 20.0f;
+                if (angle < 0)
+                    angle = 360.0f - angle;
+            }
+            else
+            {
+                angle += 20.0f;
+                if (angle > 360.0f)
+                    angle = angle -360.0f;
+            }
+
+            velocity += 5.0f;
+
+            ServiceLocator::getAudio()->playSound("audio/bounce.wav");
+        }
+
         if (getPosition().y -getHeight()/2 <= 0)
         {
-            angle = 180.0f - angle;
-            moveByY = -moveByY;
+            setPosition(Game::SCREEN_WIDTH/2, Game::SCREEN_HEIGHT/2);
+            angle = (float)(rand() % 361);
+            velocity = 220.0f;
+            elapsedTimeSinceStart = 0.0f;
         }
 
         if (getPosition().y + getHeight()/2 + moveByY >= Game::SCREEN_HEIGHT)

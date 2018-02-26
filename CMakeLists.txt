@@ -3,7 +3,7 @@ project(pong-game)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(pong-game main.cpp main.cpp Game.cpp Game.h SplashScreen.cpp SplashScreen.h MainMenu.cpp MainMenu.h Button.h Button.cpp VisibleGameObject.cpp VisibleGameObject.h PlayerPaddle.cpp PlayerPaddle.h GameObjectManager.cpp GameObjectManager.h GameBall.cpp GameBall.h IAudioProvider.cpp IAudioProvider.h SFMLSoundProvider.cpp SFMLSoundProvider.h ServiceLocator.cpp ServiceLocator.h SoundFileCache.cpp SoundFileCache.h)
+add_executable(pong-game main.cpp main.cpp Game.cpp Game.h SplashScreen.cpp SplashScreen.h MainMenu.cpp MainMenu.h Button.h Button.cpp VisibleGameObject.cpp VisibleGameObject.h PlayerPaddle.cpp PlayerPaddle.h GameObjectManager.cpp GameObjectManager.h GameBall.cpp GameBall.h IAudioProvider.cpp IAudioProvider.h SFMLSoundProvider.cpp SFMLSoundProvider.h ServiceLocator.cpp ServiceLocator.h SoundFileCache.cpp SoundFileCache.h AIPaddle.cpp AIPaddle.h)
 
 configure_file(images/Splashscreen.png images/Splashscreen.png COPYONLY)
 configure_file(images/Mainmenu.png images/Mainmenu.png COPYONLY)

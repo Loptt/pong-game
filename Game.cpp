@@ -8,6 +8,7 @@
 #include "Game.h"
 #include "SFMLSoundProvider.h"
 #include "ServiceLocator.h"
+#include "AIPaddle.h"
 
 void Game::start()
 {
@@ -17,11 +18,16 @@ void Game::start()
     mainWindow.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32), "Pong", sf::Style::Titlebar | sf::Style::Close);
 
     PlayerPaddle *player1 = new PlayerPaddle();
-    player1->setPosition(sf::Vector2f(SCREEN_WIDTH/2-40, 700));
-    gameObjectManager.add("Paddle1", player1);
+    player1->setPosition(SCREEN_WIDTH/2-40, 700);
 
     GameBall *ball = new GameBall();
-    ball->setPosition(sf::Vector2f(SCREEN_WIDTH/2, (SCREEN_HEIGHT/2)-15));
+    ball->setPosition(SCREEN_WIDTH/2, (SCREEN_HEIGHT/2)-15);
+
+    AIPaddle *player2 = new AIPaddle();
+    player2->setPosition(SCREEN_WIDTH/2-40, 40);
+
+    gameObjectManager.add("Paddle1", player1);
+    gameObjectManager.add("Paddle2", player2);
     gameObjectManager.add("Ball", ball);
 
     SFMLSoundProvider soundProvider;
