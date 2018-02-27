@@ -13,7 +13,7 @@
 #include <iostream>
 
 GameBall::GameBall() :
-velocity(500.0f),
+velocity(800.0f),
 elapsedTimeSinceStart(0.0f)
 {
     load("images/ball.png");
@@ -140,7 +140,7 @@ void GameBall::update(float elapsedTime)
         {
             setPosition(Game::SCREEN_WIDTH/2, Game::SCREEN_HEIGHT/2);
             angle = (float)(rand() % 361);
-            velocity = 220.0f;
+            velocity = 700.0f;
             elapsedTimeSinceStart = 0.0f;
         }
 
@@ -148,7 +148,7 @@ void GameBall::update(float elapsedTime)
         {
             setPosition(Game::SCREEN_WIDTH/2, Game::SCREEN_HEIGHT/2);
             angle = (float)(rand() % 361);
-            velocity = 220.0f;
+            velocity = 700.0f;
             elapsedTimeSinceStart = 0.0f;
         }
 

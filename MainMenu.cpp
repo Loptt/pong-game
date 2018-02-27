@@ -64,7 +64,7 @@ MainMenu::MenuResult MainMenu::getMenuResponse(sf::RenderWindow &window)
             if (menuEvent.type == sf::Event::MouseButtonPressed)
             {
                 //if(ServiceLocator::getAudio()->isSongPlaying())
-                  //  ServiceLocator::getAudio()->stopAllSounds();
+                //  ServiceLocator::getAudio()->stopAllSounds();
 
                 return handleClick(sf::Mouse::getPosition(window));
 

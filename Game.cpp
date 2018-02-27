@@ -9,26 +9,35 @@
 #include "SFMLSoundProvider.h"
 #include "ServiceLocator.h"
 #include "AIPaddle.h"
+#include "Scoreboard.h"
 
 void Game::start()
 {
     if (gameState != Uninitialized)
         return;
 
+    //Create window
     mainWindow.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32), "Pong", sf::Style::Titlebar | sf::Style::Close);
 
+    //Paddle moved by the player
     PlayerPaddle *player1 = new PlayerPaddle();
     player1->setPosition(SCREEN_WIDTH/2-40, 700);
 
+    //Ball used in the game
     GameBall *ball = new GameBall();
     ball->setPosition(SCREEN_WIDTH/2, (SCREEN_HEIGHT/2)-15);
 
+    //Paddle used by the computer
     AIPaddle *player2 = new AIPaddle();
     player2->setPosition(SCREEN_WIDTH/2-40, 40);
 
+    Scoreboard *scoreboard = new Scoreboard();
+
+    //Add objects to the Object manager class
     gameObjectManager.add("Paddle1", player1);
     gameObjectManager.add("Paddle2", player2);
     gameObjectManager.add("Ball", ball);
+    gameObjectManager.add("scoreboard", scoreboard);
 
     SFMLSoundProvider soundProvider;
     ServiceLocator::registerServiceLocator(&soundProvider);
@@ -66,12 +75,12 @@ void Game::gameLoop()
 
         case Game::Playing:
 
+
             deltaTime = clock.restart().asSeconds();
 
             gameObjectManager.updateAll(deltaTime);
             mainWindow.clear(sf::Color(0, 0, 0));
             gameObjectManager.drawAll(mainWindow);
-
             mainWindow.display();
 
             break;
