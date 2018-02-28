@@ -16,7 +16,7 @@ public:
     virtual ~VisibleGameObject();
 
     virtual void load(std::string filename);
-    virtual void draw(sf::RenderWindow &window);
+    virtual void draw(sf::RenderWindow *window);
     virtual void update(float elapsedTime);
 
     virtual void setPosition(sf::Vector2f);

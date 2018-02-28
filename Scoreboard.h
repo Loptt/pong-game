@@ -11,15 +11,22 @@
 class Scoreboard : public VisibleGameObject
 {
 public:
-    Scoreboard();
+    Scoreboard(sf::Font* font);
     ~Scoreboard() override;
 
+    void setScore1(int score1);
+    void setScore2(int score2);
+
+    void incrementScore1();
+    void incrementScore2();
+
     void update(float elapsedTime) override;
-    void draw(sf::RenderWindow &window);
+    void draw(sf::RenderWindow *window) override;
 
 private:
     int score1;
     int score2;
+    int maxScore;
 
     sf::Text title;
 

@@ -47,7 +47,7 @@ void Button::setColor(sf::Color color)
     body.setFillColor(color);
 }
 
-void Button::Draw(sf::RenderWindow *window)
+void Button::draw(sf::RenderWindow *window)
 {
     window->draw(body);
     window->draw(text);

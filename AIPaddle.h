@@ -15,7 +15,7 @@ public:
     ~AIPaddle(void) override;
 
     void update(float elapsedTime) override;
-    void draw(sf::RenderWindow &window) override;
+    void draw(sf::RenderWindow *window) override;
 
     float getVelocity() const;
 

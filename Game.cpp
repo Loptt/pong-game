@@ -19,6 +19,9 @@ void Game::start()
     //Create window
     mainWindow.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32), "Pong", sf::Style::Titlebar | sf::Style::Close);
 
+    sf::Font font;
+    font.loadFromFile("fonts/LifeIsOkay.otf");
+
     //Paddle moved by the player
     PlayerPaddle *player1 = new PlayerPaddle();
     player1->setPosition(SCREEN_WIDTH/2-40, 700);
@@ -31,7 +34,7 @@ void Game::start()
     AIPaddle *player2 = new AIPaddle();
     player2->setPosition(SCREEN_WIDTH/2-40, 40);
 
-    Scoreboard *scoreboard = new Scoreboard();
+    Scoreboard *scoreboard = new Scoreboard(&font);
 
     //Add objects to the Object manager class
     gameObjectManager.add("Paddle1", player1);

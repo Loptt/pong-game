@@ -14,7 +14,7 @@ public:
     ~PlayerPaddle();
 
     void update(float elapsedTime) override;
-    void draw(sf::RenderWindow &window) override;
+    void draw(sf::RenderWindow *window) override;
 
     bool getIsGoingRight();
 

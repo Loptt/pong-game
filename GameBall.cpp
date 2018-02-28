@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "ServiceLocator.h"
 #include "AIPaddle.h"
+#include "Scoreboard.h"
 #include <cassert>
 #include <cmath>
 #include <cstdlib>
@@ -60,6 +61,7 @@ void GameBall::update(float elapsedTime)
 
     PlayerPaddle *player1 = dynamic_cast<PlayerPaddle*>(Game::getGameObjectManager().get("Paddle1"));
     AIPaddle *player2 = dynamic_cast<AIPaddle*>(Game::getGameObjectManager().get("Paddle2"));
+    Scoreboard *scoreboard = dynamic_cast<Scoreboard*>(Game::getGameObjectManager().get("scoreboard"));
 
     if (player1 != NULL && player2 != NULL)
     {
@@ -136,20 +138,24 @@ void GameBall::update(float elapsedTime)
             ServiceLocator::getAudio()->playSound("audio/bounce.wav");
         }
 
+        //Player scores
         if (getPosition().y -getHeight()/2 <= 0)
         {
             setPosition(Game::SCREEN_WIDTH/2, Game::SCREEN_HEIGHT/2);
             angle = (float)(rand() % 361);
             velocity = 700.0f;
             elapsedTimeSinceStart = 0.0f;
+            scoreboard->incrementScore1();
         }
 
+        //AI scores
         if (getPosition().y + getHeight()/2 + moveByY >= Game::SCREEN_HEIGHT)
         {
             setPosition(Game::SCREEN_WIDTH/2, Game::SCREEN_HEIGHT/2);
             angle = (float)(rand() % 361);
             velocity = 700.0f;
             elapsedTimeSinceStart = 0.0f;
+            scoreboard->incrementScore2();
         }
 
     }

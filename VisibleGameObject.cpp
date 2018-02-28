@@ -30,11 +30,11 @@ void VisibleGameObject::load(std::string filename)
     }
 }
 
-void VisibleGameObject::draw(sf::RenderWindow &window)
+void VisibleGameObject::draw(sf::RenderWindow *window)
 {
     if (isLoaded)
     {
-        window.draw(sprite);
+        window->draw(sprite);
     }
 }
 

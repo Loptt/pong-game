@@ -25,7 +25,7 @@ public:
     void updateButton();
 
     bool isButtonClicked(sf::Vector2i);
-    void Draw(sf::RenderWindow *window);
+    void draw(sf::RenderWindow *window);
 
 private:
     sf::RectangleShape body;

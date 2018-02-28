@@ -68,7 +68,7 @@ void AIPaddle::update(float elapsedTime)
     velocity *= 0.995f;
 }
 
-void AIPaddle::draw(sf::RenderWindow &window)
+void AIPaddle::draw(sf::RenderWindow *window)
 {
     VisibleGameObject::draw(window);
 }

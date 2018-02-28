@@ -54,7 +54,7 @@ void GameObjectManager::drawAll(sf::RenderWindow &window)
 
     while (itr != gameObjects.end())
     {
-        itr->second->draw(window);
+        itr->second->draw(&window);
         itr++;
     }
 }

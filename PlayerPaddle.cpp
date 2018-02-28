@@ -71,7 +71,7 @@ void PlayerPaddle::update(float elapsedTime)
     velocity *= 0.995f;
 }
 
-void PlayerPaddle::draw(sf::RenderWindow &window)
+void PlayerPaddle::draw(sf::RenderWindow *window)
 {
     VisibleGameObject::draw(window);
 }
