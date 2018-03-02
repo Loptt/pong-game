@@ -19,6 +19,7 @@ Scoreboard::Scoreboard(sf::Font *font)
     score2 = 0;
     maxScore = 10;
 
+    //Convert integer to character
     char charScore1 = score1 + 0x30;
     char charScore2 = score2 + 0x30;
 
@@ -55,6 +56,7 @@ Scoreboard::Scoreboard(sf::Font *font)
     title.setOrigin(titleBoundingRect.width/2, titleBoundingRect.height/2);
     title.setPosition(getWidth()/2, Game::SCREEN_HEIGHT/2-50);
 
+    //Set other positions relative to title
     textPlayer1.setPosition(title.getPosition().x-27,title.getPosition().y+25);
     textScore1.setPosition(title.getPosition().x+10,title.getPosition().y+25);
 
@@ -69,6 +71,7 @@ Scoreboard::~Scoreboard()
 
 void Scoreboard::update(float elapsedTime)
 {
+    //Convert integer to char
     char charScore1 = score1 + 0x30;
     char charScore2 = score2 + 0x30;
 

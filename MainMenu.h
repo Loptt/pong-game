@@ -24,7 +24,7 @@ public:
 
 private:
 
-    MenuResult getMenuResponse(sf::RenderWindow &window);
+    MenuResult getMenuResponse(sf::RenderWindow *window);
     MenuResult handleClick(sf::Vector2i mousePos);
     std::list<MenuItem> menuItems;
 };

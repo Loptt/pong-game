@@ -35,7 +35,7 @@ MainMenu::MenuResult MainMenu::show(sf::RenderWindow &window)
     window.draw(sprite);
     window.display();
 
-    return getMenuResponse(window);
+    return getMenuResponse(&window);
 }
 
 MainMenu::MenuResult MainMenu::handleClick(sf::Vector2i mousePos)
@@ -53,13 +53,13 @@ MainMenu::MenuResult MainMenu::handleClick(sf::Vector2i mousePos)
     return Nothing;
 }
 
-MainMenu::MenuResult MainMenu::getMenuResponse(sf::RenderWindow &window)
+MainMenu::MenuResult MainMenu::getMenuResponse(sf::RenderWindow *window)
 {
     sf::Event menuEvent;
 
     while (true)
     {
-        while (window.pollEvent(menuEvent))
+        while (window->pollEvent(menuEvent))
         {
             if (menuEvent.type == sf::Event::MouseButtonPressed)
             {

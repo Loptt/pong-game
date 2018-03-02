@@ -78,13 +78,16 @@ void Game::gameLoop()
 
         case Game::Playing:
 
-
             deltaTime = clock.restart().asSeconds();
 
             gameObjectManager.updateAll(deltaTime);
             mainWindow.clear(sf::Color(0, 0, 0));
             gameObjectManager.drawAll(mainWindow);
             mainWindow.display();
+
+            break;
+
+        case Game::Paused:
 
             break;
 
