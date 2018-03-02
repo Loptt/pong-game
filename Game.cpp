@@ -10,6 +10,7 @@
 #include "ServiceLocator.h"
 #include "AIPaddle.h"
 #include "Scoreboard.h"
+#include "PauseScreen.h"
 
 void Game::start()
 {
@@ -85,10 +86,15 @@ void Game::gameLoop()
             gameObjectManager.drawAll(mainWindow);
             mainWindow.display();
 
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P))
+            {
+                gameState = Paused;
+            }
+
             break;
 
         case Game::Paused:
-
+            showPausedScreen();
             break;
 
         default:
@@ -128,17 +134,34 @@ void Game::showSplashScreen()
     gameState = Game::ShowingMenu;
 }
 
+void Game::showPausedScreen()
+{
+    PauseScreen pauseScreen;
+    PauseScreen::PauseResult result = pauseScreen.show(mainWindow);
+
+    switch (result)
+    {
+        case PauseScreen::Exit:
+            gameState = Game::Exiting;
+            break;
+        case PauseScreen::Continue:
+            gameState = Game::Playing;
+            break;
+    }
+
+}
+
+GameObjectManager &Game::getGameObjectManager()
+{
+    return gameObjectManager;
+}
+
 sf::RenderWindow &Game::getWindow()
 {
     return mainWindow;
 }
 
 Game::GameState Game::gameState = Uninitialized;
-
-GameObjectManager &Game::getGameObjectManager()
-{
-    return gameObjectManager;
-}
 
 sf::RenderWindow Game::mainWindow;
 GameObjectManager Game::gameObjectManager;

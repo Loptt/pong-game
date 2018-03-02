@@ -29,6 +29,7 @@ private:
 
     static void showMainMenu();
     static void showSplashScreen();
+    static void showPausedScreen();
 
     enum GameState {Uninitialized, ShowingSplash, Paused, ShowingMenu, Playing,
                     Exiting};

@@ -6,19 +6,31 @@
 #define PONG_GAME_PAUSESCREEN_H
 
 #include "Button.h"
+#include <list>
 
 class PauseScreen
 {
 public:
-    enum PauseResult {Continue, Exit};
+    PauseScreen();
 
-    struct
+    enum PauseResult {Continue, Exit, Nothing};
+
+    struct PauseItem
     {
         Button button;
         PauseResult action;
     };
 
-    PauseResult show()
+    PauseResult show(sf::RenderWindow &window);
+
+private:
+    PauseResult getPauseResponse(sf::RenderWindow *window);
+    PauseResult handleClick(sf::Vector2i mousePos);
+
+    std::list<PauseItem> pauseItems;
+    sf::Text pauseText;
+    sf::Font font;
+
 };
 
 

@@ -20,7 +20,12 @@ public:
     void setSize(sf::Vector2f size);
     void setColor(sf::Color);
     void setPosition(sf::Vector2f pos);
+    void setPosition(int x, int y);
     void setText(std::string message);
+    void setFontFile(std::string fileName);
+    void setTextColor(sf::Color color);
+    void setTextSize(int size);
+    void configureText(std::string message, std::string fileName, sf::Color color, int size);
 
     void updateButton();
 

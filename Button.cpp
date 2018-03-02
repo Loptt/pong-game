@@ -37,6 +37,11 @@ void Button::setPosition(sf::Vector2f pos)
     body.setPosition(pos);
 }
 
+void Button::setPosition(int x, int y)
+{
+    body.setPosition(x,y);
+}
+
 void Button::setText(std::string message)
 {
     text.setString(message);
@@ -50,7 +55,8 @@ void Button::setColor(sf::Color color)
 void Button::draw(sf::RenderWindow *window)
 {
     window->draw(body);
-    window->draw(text);
+    //window->draw(text);
+    std::cout <<"drawn body" << std::endl;
 }
 
 bool Button::isButtonClicked(sf::Vector2i mousePos)
@@ -70,9 +76,33 @@ void Button::updateButton()
 {
     sf::Vector2f position = body.getPosition();
     sf::Vector2f size = body.getSize();
-
     sf::FloatRect textRect = text.getLocalBounds();
     text.setOrigin(textRect.left + textRect.width/2.0f, textRect.top  + textRect.height/2.0f);
     text.setPosition(sf::Vector2f(position.x+(size.x/2.0f),position.y+(size.y/2.0f)));
 
+}
+
+void Button::setFontFile(std::string fileName)
+{
+    font.loadFromFile(fileName);
+    text.setFont(font);
+}
+
+void Button::setTextColor(sf::Color color)
+{
+    text.setColor(color);
+}
+
+void Button::setTextSize(int size)
+{
+    text.setCharacterSize(size);
+}
+
+void Button::configureText(std::string message, std::string fileName, sf::Color color, int size)
+{
+    font.loadFromFile(fileName);
+    text.setFont(font);
+    text.setColor(color);
+    text.setCharacterSize(size);
+    text.setString(message);
 }

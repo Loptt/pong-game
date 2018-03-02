@@ -59,17 +59,16 @@ MainMenu::MenuResult MainMenu::getMenuResponse(sf::RenderWindow *window)
 
     while (true)
     {
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+        {
+            //if(ServiceLocator::getAudio()->isSongPlaying())
+            //  ServiceLocator::getAudio()->stopAllSounds();
+
+            return handleClick(sf::Mouse::getPosition(*window));
+
+        }
         while (window->pollEvent(menuEvent))
         {
-            if (menuEvent.type == sf::Event::MouseButtonPressed)
-            {
-                //if(ServiceLocator::getAudio()->isSongPlaying())
-                //  ServiceLocator::getAudio()->stopAllSounds();
-
-                return handleClick(sf::Mouse::getPosition(window));
-
-            }
-
             if (menuEvent.type == sf::Event::Closed)
             {
                 return Exit;
