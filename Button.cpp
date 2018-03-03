@@ -55,8 +55,7 @@ void Button::setColor(sf::Color color)
 void Button::draw(sf::RenderWindow *window)
 {
     window->draw(body);
-    //window->draw(text);
-    std::cout <<"drawn body" << std::endl;
+    window->draw(text);
 }
 
 bool Button::isButtonClicked(sf::Vector2i mousePos)
@@ -98,10 +97,9 @@ void Button::setTextSize(int size)
     text.setCharacterSize(size);
 }
 
-void Button::configureText(std::string message, std::string fileName, sf::Color color, int size)
+void Button::configureText(std::string message, sf::Color color, int size, sf::Font *font)
 {
-    font.loadFromFile(fileName);
-    text.setFont(font);
+    text.setFont(*font);
     text.setColor(color);
     text.setCharacterSize(size);
     text.setString(message);

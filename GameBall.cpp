@@ -35,7 +35,7 @@ GameBall::~GameBall()
 void GameBall::update(float elapsedTime)
 {
     elapsedTimeSinceStart += elapsedTime;
-    std::cout << elapsedTime << std::endl;
+    //std::cout << elapsedTime << std::endl;
 
     if (elapsedTimeSinceStart < 3.0f)
         return;

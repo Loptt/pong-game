@@ -3,10 +3,8 @@
 //
 
 #include "MainMenu.h"
-#include "ServiceLocator.h"
-#include <iostream>
-
-#include <iostream>
+#include <chrono>
+#include <thread>
 
 MainMenu::MenuResult MainMenu::show(sf::RenderWindow &window)
 {
@@ -34,6 +32,8 @@ MainMenu::MenuResult MainMenu::show(sf::RenderWindow &window)
 
     window.draw(sprite);
     window.display();
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     return getMenuResponse(&window);
 }

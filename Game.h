@@ -7,11 +7,20 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <iostream>
+#include <cassert>
+#include <chrono>
+#include <thread>
 #include "MainMenu.h"
 #include "SplashScreen.h"
 #include "PlayerPaddle.h"
 #include "GameObjectManager.h"
 #include "GameBall.h"
+#include "SFMLSoundProvider.h"
+#include "ServiceLocator.h"
+#include "AIPaddle.h"
+#include "Scoreboard.h"
+#include "PauseScreen.h"
 
 class Game
 {

@@ -2,15 +2,7 @@
 // Created by charles on 15/02/18.
 //
 
-
-#include <iostream>
-#include <cassert>
 #include "Game.h"
-#include "SFMLSoundProvider.h"
-#include "ServiceLocator.h"
-#include "AIPaddle.h"
-#include "Scoreboard.h"
-#include "PauseScreen.h"
 
 void Game::start()
 {
@@ -95,6 +87,11 @@ void Game::gameLoop()
 
         case Game::Paused:
             showPausedScreen();
+            mainWindow.clear(sf::Color(0, 0, 0));
+            gameObjectManager.drawAll(mainWindow);
+            mainWindow.display();
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            clock.restart();
             break;
 
         default:
@@ -125,6 +122,10 @@ void Game::showMainMenu()
             gameState = Game::Playing;
             break;
     }
+
+    Scoreboard *scoreboard = dynamic_cast<Scoreboard*>(gameObjectManager.get("scoreboard"));
+    scoreboard->setScore1(0);
+    scoreboard->setScore2(0);
 }
 
 void Game::showSplashScreen()
@@ -142,7 +143,7 @@ void Game::showPausedScreen()
     switch (result)
     {
         case PauseScreen::Exit:
-            gameState = Game::Exiting;
+            gameState = Game::ShowingMenu;
             break;
         case PauseScreen::Continue:
             gameState = Game::Playing;
@@ -162,7 +163,6 @@ sf::RenderWindow &Game::getWindow()
 }
 
 Game::GameState Game::gameState = Uninitialized;
-
 sf::RenderWindow Game::mainWindow;
 GameObjectManager Game::gameObjectManager;
 sf::Clock Game::clock;

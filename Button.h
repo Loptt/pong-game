@@ -25,7 +25,7 @@ public:
     void setFontFile(std::string fileName);
     void setTextColor(sf::Color color);
     void setTextSize(int size);
-    void configureText(std::string message, std::string fileName, sf::Color color, int size);
+    void configureText(std::string message, sf::Color color, int size, sf::Font*);
 
     void updateButton();
 
