@@ -18,6 +18,7 @@ private:
     float velocity;
     float angle;
     float elapsedTimeSinceStart;
+    int count;
 
     float linearVelocityX(float);
     float linearVelocityY(float);

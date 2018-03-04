@@ -15,7 +15,8 @@
 
 GameBall::GameBall() :
 velocity(800.0f),
-elapsedTimeSinceStart(0.0f)
+elapsedTimeSinceStart(0.0f),
+count(0)
 {
     load("images/ball.png");
     assert(getIsLoaded());
@@ -24,7 +25,26 @@ elapsedTimeSinceStart(0.0f)
 
     srand(time(NULL));
 
-    angle = (float)(rand() % 361);
+    int direction = rand() % 4;
+
+    switch (direction)
+    {
+        case 0:
+            angle = (float)(rand() % 10)-5;
+            break;
+        case 1:
+            angle = (float)(rand() % 10)+85;
+            break;
+        case 2:
+            angle = (float)(rand() % 10)+175;
+            break;
+        case 3:
+            angle = (float)(rand() % 10)+265;
+            break;
+        default:
+            angle = (float)(rand() % 10)-5;
+            break;
+    }
 }
 
 GameBall::~GameBall()
@@ -35,7 +55,13 @@ GameBall::~GameBall()
 void GameBall::update(float elapsedTime)
 {
     elapsedTimeSinceStart += elapsedTime;
-    //std::cout << elapsedTime << std::endl;
+
+    if (count == 0)
+    {
+        std::cout << elapsedTime << std::endl;
+        std::cout << count << std::endl;
+        count++;
+    }
 
     if (elapsedTimeSinceStart < 3.0f)
         return;
@@ -113,9 +139,11 @@ void GameBall::update(float elapsedTime)
 
             moveByY = -moveByY;
 
-            if (getBoundingRect().top + getBoundingRect().height < player2->getBoundingRect().top)
+            if (getBoundingRect().top < player2->getBoundingRect().top + player2->getBoundingRect().height)
             {
-                sf::Vector2f position(getPosition().x, player2->getBoundingRect().top- getWidth()/2-1);
+                sf::Vector2f position(getPosition().x, player2->getBoundingRect().top + player2->getHeight()
+                                      + getWidth()/2+1);
+
                 setPosition(position);
             }
 
@@ -142,23 +170,68 @@ void GameBall::update(float elapsedTime)
         //Player scores
         if (getPosition().y -getHeight()/2 <= 0)
         {
+            std::cout << "Player scored with " << elapsedTimeSinceStart << " seconds" << std::endl;
+
+            scoreboard->incrementScore1();
             setPosition(Game::SCREEN_WIDTH/2, Game::SCREEN_HEIGHT/2);
-            angle = (float)(rand() % 361);
+
             velocity = 700.0f;
             elapsedTimeSinceStart = 0.0f;
-            scoreboard->incrementScore1();
+
+            int direction = rand() % 4;
+
+            switch (direction)
+            {
+                case 0:
+                    angle = (float) (rand() % 10) - 5;
+                    break;
+                case 1:
+                    angle = (float) (rand() % 10) + 85;
+                    break;
+                case 2:
+                    angle = (float) (rand() % 10) + 175;
+                    break;
+                case 3:
+                    angle = (float) (rand() % 10) + 265;
+                    break;
+                default:
+                    angle = (float) (rand() % 10) - 5;
+                    break;
+            }
         }
 
         //AI scores
         if (getPosition().y + getHeight()/2 + moveByY >= Game::SCREEN_HEIGHT)
         {
+            std::cout << "AI scored with " << elapsedTimeSinceStart << " seconds" << std::endl;
+
+            scoreboard->incrementScore2();
             setPosition(Game::SCREEN_WIDTH/2, Game::SCREEN_HEIGHT/2);
-            angle = (float)(rand() % 361);
+
             velocity = 700.0f;
             elapsedTimeSinceStart = 0.0f;
-            scoreboard->incrementScore2();
-        }
 
+            int direction = rand() % 4;
+
+            switch (direction)
+            {
+                case 0:
+                    angle = (float) (rand() % 10) - 5;
+                    break;
+                case 1:
+                    angle = (float) (rand() % 10) + 85;
+                    break;
+                case 2:
+                    angle = (float) (rand() % 10) + 175;
+                    break;
+                case 3:
+                    angle = (float) (rand() % 10) + 265;
+                    break;
+                default:
+                    angle = (float) (rand() % 10) - 5;
+                    break;
+            }
+        }
     }
 
     getSprite().move(moveByX, moveByY);

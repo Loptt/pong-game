@@ -29,7 +29,7 @@ PauseScreen::PauseScreen()
     continueButton.button.updateButton();
 
     PauseItem exitButton;
-    exitButton.action = Exit;
+    exitButton.action = Menu;
     exitButton.button.configureText("Return to Menu",sf::Color::Black,40, &font);
     exitButton.button.setSize(buttonSize);
     exitButton.button.setPosition(Game::SCREEN_WIDTH/2-buttonSize.x/2,520);

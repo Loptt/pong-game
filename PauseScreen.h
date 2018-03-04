@@ -13,7 +13,7 @@ class PauseScreen
 public:
     PauseScreen();
 
-    enum PauseResult {Continue, Exit, Nothing};
+    enum PauseResult {Continue, Menu, Exit, Nothing};
 
     struct PauseItem
     {

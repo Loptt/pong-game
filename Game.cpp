@@ -27,7 +27,7 @@ void Game::start()
     AIPaddle *player2 = new AIPaddle();
     player2->setPosition(SCREEN_WIDTH/2-40, 40);
 
-    Scoreboard *scoreboard = new Scoreboard(&font);
+    scoreboard = new Scoreboard(&font);
 
     //Add objects to the Object manager class
     gameObjectManager.add("Paddle1", player1);
@@ -67,9 +67,16 @@ void Game::gameLoop()
 
         case Game::ShowingMenu:
             showMainMenu();
+            clock.restart();
             break;
 
         case Game::Playing:
+
+            if (scoreboard->getScore1() == 10 || scoreboard->getScore2() == 10)
+            {
+                gameState = Game::GameOver;
+                break;
+            }
 
             deltaTime = clock.restart().asSeconds();
 
@@ -85,13 +92,30 @@ void Game::gameLoop()
 
             break;
 
+
         case Game::Paused:
             showPausedScreen();
+
             mainWindow.clear(sf::Color(0, 0, 0));
             gameObjectManager.drawAll(mainWindow);
             mainWindow.display();
             std::this_thread::sleep_for(std::chrono::milliseconds(500));
             clock.restart();
+
+            break;
+
+        case Game::GameOver:
+
+            showOverScreen(scoreboard->getScore1() > scoreboard->getScore2());
+            scoreboard->setScore1(0);
+            scoreboard->setScore2(0);
+
+            mainWindow.clear(sf::Color(0, 0, 0));
+            gameObjectManager.drawAll(mainWindow);
+            mainWindow.display();
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            clock.restart();
+
             break;
 
         default:
@@ -123,7 +147,6 @@ void Game::showMainMenu()
             break;
     }
 
-    Scoreboard *scoreboard = dynamic_cast<Scoreboard*>(gameObjectManager.get("scoreboard"));
     scoreboard->setScore1(0);
     scoreboard->setScore2(0);
 }
@@ -142,14 +165,40 @@ void Game::showPausedScreen()
 
     switch (result)
     {
-        case PauseScreen::Exit:
+        case PauseScreen::Menu:
             gameState = Game::ShowingMenu;
             break;
+
         case PauseScreen::Continue:
             gameState = Game::Playing;
             break;
+
+        case PauseScreen::Exit:
+            gameState = Game::Exiting;
+            break;
     }
 
+}
+
+void Game::showOverScreen(bool isWinner)
+{
+    GameOverScreen gameOverScreen;
+    GameOverScreen::OverResult result = gameOverScreen.show(mainWindow, isWinner);
+
+    switch (result)
+    {
+        case GameOverScreen::Menu:
+            gameState = Game::ShowingMenu;
+            break;
+
+        case GameOverScreen::PlayAgain:
+            gameState = Game::Playing;
+            break;
+
+        case GameOverScreen::Exit:
+            gameState = Game::Exiting;
+            break;
+    }
 }
 
 GameObjectManager &Game::getGameObjectManager()
@@ -163,6 +212,8 @@ sf::RenderWindow &Game::getWindow()
 }
 
 Game::GameState Game::gameState = Uninitialized;
+
 sf::RenderWindow Game::mainWindow;
 GameObjectManager Game::gameObjectManager;
 sf::Clock Game::clock;
+Scoreboard* Game::scoreboard;

@@ -78,11 +78,6 @@ void Scoreboard::update(float elapsedTime)
     textScore1.setString(charScore1);
     textScore2.setString(charScore2);
 
-    if (score1 >= maxScore || score2 >= maxScore)
-    {
-        setScore1(0);
-        setScore2(0);
-    }
 }
 
 void Scoreboard::draw(sf::RenderWindow *window)
@@ -113,4 +108,14 @@ void Scoreboard::incrementScore1()
 void Scoreboard::incrementScore2()
 {
     score2++;
+}
+
+int Scoreboard::getScore1()
+{
+    return score1;
+}
+
+int Scoreboard::getScore2()
+{
+    return score2;
 }

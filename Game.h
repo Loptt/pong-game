@@ -21,6 +21,7 @@
 #include "AIPaddle.h"
 #include "Scoreboard.h"
 #include "PauseScreen.h"
+#include "GameOverScreen.h"
 
 class Game
 {
@@ -39,9 +40,10 @@ private:
     static void showMainMenu();
     static void showSplashScreen();
     static void showPausedScreen();
+    static void showOverScreen(bool isWinner);
 
     enum GameState {Uninitialized, ShowingSplash, Paused, ShowingMenu, Playing,
-                    Exiting};
+                    GameOver, Exiting};
 
     static GameState gameState;
     static sf::RenderWindow mainWindow;
@@ -49,6 +51,8 @@ private:
     static GameObjectManager gameObjectManager;
 
     static sf::Clock clock;
+
+    static Scoreboard *scoreboard;
 };
 
 #endif //PROJECT_PYROS_GAME_H
